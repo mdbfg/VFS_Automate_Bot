@@ -10,6 +10,8 @@ from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.keys import Keys
 import time
 import pandas as pd
+
+
 def page_one():
     options = Options()
     options.add_argument("--no-sandbox")
@@ -17,6 +19,8 @@ def page_one():
     driver = webdriver.Chrome(options=options)
     driver.get(base_url)
     return driver
+
+
 def page_two(driver):
     url = "https://row1.vfsglobal.com/GlobalAppointment/Home/Index"
     print(driver.find_element_by_class_name("leftpanel-links").find_elements_by_class_name("inactive-link")[3].text)
@@ -39,6 +43,10 @@ def page_two(driver):
     time.sleep(3)
     driver.find_element_by_id('btnContinueService').click()
     time.sleep(3)
+    month_year = driver.find_element_by_class_name('fc-header-title').text
+    month = month_year.split(' ')[0]
+    print(month)
+
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
     # Login
