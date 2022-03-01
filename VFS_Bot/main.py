@@ -32,7 +32,13 @@ def page_two(driver):
     email.send_keys(data['Mail'].values[0])
     phone.send_keys(str(data['phone number'].values[0]))
     driver.find_elements_by_class_name('submitbtn')[1].click()
-
+    time.sleep(3)
+    driver.find_element_by_class_name('btn').click()
+    time.sleep(3)
+    driver.find_element_by_class_name('frm-button').find_element_by_class_name('submitbtn').click()
+    time.sleep(3)
+    driver.find_element_by_id('btnContinueService').click()
+    time.sleep(3)
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
     # Login
@@ -45,5 +51,6 @@ if __name__ == '__main__':
     print(captcha.get_attribute("src"))
     time.sleep(10)
     driver.find_element_by_class_name("submitbtn").click()
+    time.sleep(3)
     page_two(driver)
 # See PyCharm help at https://www.jetbrains.com/help/pycharm/
