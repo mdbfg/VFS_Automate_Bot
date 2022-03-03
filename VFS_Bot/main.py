@@ -10,8 +10,22 @@ from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.keys import Keys
 import time
 import pandas as pd
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 
+proxyOne = '43.224.10.26:6666'
+proxyTwo = '45.250.226.14:3128'
 
+# webdriver.DesiredCapabilities.CHROME['proxy'] = {
+#     "httpProxy": proxyTwo,
+#     "ftpProxy": proxyTwo,
+#     "sslProxy": proxyTwo,
+#
+#     "proxyType": "MANUAL",
+#
+# }
 def page_one():
     options = Options()
     options.add_argument("--no-sandbox")
@@ -20,24 +34,48 @@ def page_one():
     driver.get(base_url)
     return driver
 
+def test():
+    data = pd.read_csv('data.csv')
+    print(len(data))
+    print(data.iloc[0,:]['Reference number'])
+    for i in range(0,len(data)):
+        print(data['Reference number'].values[i])
+        print(str(data['Passport number'].values[i]))
+        print(data['Mail'].values[i])
+        print(str(data['phone number'].values[i]))
+        # driver.switch_to.new_window('window')
+        print()
 
 def page_two(driver):
     url = "https://row1.vfsglobal.com/GlobalAppointment/Home/Index"
     print(driver.find_element_by_class_name("leftpanel-links").find_elements_by_class_name("inactive-link")[3].text)
     driver.find_element_by_class_name("leftpanel-links").find_elements_by_class_name("inactive-link")[3].click()
     data = pd.read_csv('data.csv')
+    page_three(driver,data.iloc[0, :])
+
+
+
+def page_three(driver,data):
     ref = driver.find_element_by_id("AURN")
     passport = driver.find_element_by_id("txtPassport")
     email = driver.find_element_by_id("PrimaryEmailId")
     phone = driver.find_element_by_id("txtContactNumber")
-    print(data['Passport number'].values[0])
-    ref.send_keys(data['Reference number'].values[0])
-    passport.send_keys(str(data['Passport number'].values[0]))
-    email.send_keys(data['Mail'].values[0])
-    phone.send_keys(str(data['phone number'].values[0]))
+    # user data starts
+    ref.send_keys(data['Reference number'])
+    passport.send_keys(str(data['Passport number']))
+    email.send_keys(data['Mail'])
+    phone.send_keys(str(data['phone number']))
     driver.find_elements_by_class_name('submitbtn')[1].click()
-    time.sleep(3)
-    driver.find_element_by_class_name('btn').click()
+    try:
+        element = WebDriverWait(driver, 10).until(
+            EC.presence_of_element_located((By.CLASS_NAME, "btn"))
+        )
+        element.click()
+    finally:
+        print("Driver Quit")
+    # end user data
+    # time.sleep(3)
+    # driver.find_element_by_class_name('btn').click()
     time.sleep(3)
     driver.find_element_by_class_name('frm-button').find_element_by_class_name('submitbtn').click()
     time.sleep(3)
@@ -61,4 +99,5 @@ if __name__ == '__main__':
     driver.find_element_by_class_name("submitbtn").click()
     time.sleep(3)
     page_two(driver)
+    # test()
 # See PyCharm help at https://www.jetbrains.com/help/pycharm/
