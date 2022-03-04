@@ -46,12 +46,11 @@ def test():
         # driver.switch_to.new_window('window')
         print()
 
-def page_two(driver):
+def page_two(driver,data):
     url = "https://row1.vfsglobal.com/GlobalAppointment/Home/Index"
     print(driver.find_element_by_class_name("leftpanel-links").find_elements_by_class_name("inactive-link")[3].text)
     driver.find_element_by_class_name("leftpanel-links").find_elements_by_class_name("inactive-link")[3].click()
-    data = pd.read_csv('data.csv')
-    page_three(driver,data.iloc[0, :])
+    page_three(driver,data)
 
 
 
@@ -89,15 +88,21 @@ def page_three(driver,data):
 if __name__ == '__main__':
     # Login
     driver = page_one()
+    data = pd.read_csv('data.csv')
+    # data['Reference number'].values[1]
+    password = str(data['longin Password '].values[1])
+    # str(data['Passport number'].values[1])
+    email = data['Mail'].values[1]
+    str(data['phone number'].values[1])
     email_field = driver.find_element_by_id("EmailId")
     pass_field = driver.find_element_by_id("Password")
-    email_field.send_keys("Jeamscreative@gmailni.com")
-    pass_field.send_keys("Jeams@22")
+    email_field.send_keys(email)
+    pass_field.send_keys(password)
     captcha = driver.find_element_by_id("CaptchaImage")
     print(captcha.get_attribute("src"))
     time.sleep(10)
     driver.find_element_by_class_name("submitbtn").click()
     time.sleep(3)
-    page_two(driver)
-    # test()
+    page_two(driver,data.loc[1,:])
+    test()
 # See PyCharm help at https://www.jetbrains.com/help/pycharm/
