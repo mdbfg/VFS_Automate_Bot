@@ -1,0 +1,1291 @@
+
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html" charset="utf-8" />
+    <title>VFS : Booking Appointment</title>
+
+    <script type="090e0fe188f4a535d1fb391b-text/javascript" src="/GlobalAppointment/ruxitagentjs_ICA2Vfjqrux_10203201027145855.js" data-dtconfig="rid=RID_-122130980|rpid=-2125602275|domain=vfsglobal.com|reportUrl=/GlobalAppointment/rb_bf57784lha|app=86e062a5b6c28a86|ssc=1|rcdec=1209600000|featureHash=ICA2Vfjqrux|vcv=2|rdnt=1|uxrgce=1|bp=3|srmcrv=10|cuc=21jpz34w|mel=100000|ssv=4|lastModification=1645541998373|dtVersion=10203201027145855|srmcrl=1|tp=500,50,0,1|uxdcw=1500|agentUri=/GlobalAppointment/ruxitagentjs_ICA2Vfjqrux_10203201027145855.js"></script><link href="/GlobalAppointment/Content/CMS-Styles/css/style.css" rel="stylesheet"/>
+
+    <link href="/GlobalAppointment/Content/CMS-Styles/css/jquery.selectBox.css" rel="stylesheet"/>
+
+    <link href="/GlobalAppointment/Content/CMS-Styles/css/SpryAccordion.css" rel="stylesheet"/>
+
+    <link href="/GlobalAppointment/Content/CMS-Styles/css/jqtransform.css" rel="stylesheet"/>
+
+    <link href="/GlobalAppointment/Content/themes/base/jquery-ui.css" rel="stylesheet"/>
+
+    <link href="/GlobalAppointment/Content/CMS-Styles/css/bootstrap.min.css" rel="stylesheet"/>
+
+    <link href="/GlobalAppointment/Content/CMS-Styles/css/bootstrap-theme.min.css" rel="stylesheet"/>
+
+    <link href="/GlobalAppointment/Content/CMS-Styles/css/bootstrap-datetimepicker.min.css" rel="stylesheet"/>
+
+    <link href="/GlobalAppointment/Content/CMS-Styles/css/jquery.countdown.css" rel="stylesheet"/>
+
+
+
+
+
+
+    
+    
+    
+    <script src="/GlobalAppointment/Scripts/jquery-3.6.0.min.js" type="090e0fe188f4a535d1fb391b-text/javascript"></script>
+
+    <script src="/GlobalAppointment/Content/CMS-Styles/js/jquery.selectBox.js" type="090e0fe188f4a535d1fb391b-text/javascript"></script>
+
+    <script src="/GlobalAppointment/Content/CMS-Styles/js/SpryAccordion.js" type="090e0fe188f4a535d1fb391b-text/javascript"></script>
+
+    <script src="/GlobalAppointment/Content/CMS-Styles/js/jquery.jqtransform.js" type="090e0fe188f4a535d1fb391b-text/javascript"></script>
+
+    <script src="/GlobalAppointment/Content/CMS-Styles/js/bootstrap.min.js" type="090e0fe188f4a535d1fb391b-text/javascript"></script>
+
+    <script src="/GlobalAppointment/Content/CMS-Styles/js/bootstrap-datetimepicker.min.js" type="090e0fe188f4a535d1fb391b-text/javascript"></script>
+
+
+
+    <link href="/GlobalAppointment/Content/App-Styles/css/jquery.modalbox.css" rel="stylesheet"/>
+
+    <script src="/GlobalAppointment/Scripts/jquery-migrate-3.0.1.js" type="090e0fe188f4a535d1fb391b-text/javascript"></script>
+
+    <script src="/GlobalAppointment/Scripts/jquery.modalbox-1.5.0-min.js" type="090e0fe188f4a535d1fb391b-text/javascript"></script>
+
+    <script src="/GlobalAppointment/Scripts/jquery.magnific-popup.min.js" type="090e0fe188f4a535d1fb391b-text/javascript"></script>
+
+    <script src="/GlobalAppointment/Scripts/jquery.countdown.js" type="090e0fe188f4a535d1fb391b-text/javascript"></script>
+
+
+
+
+    
+    <script src="/GlobalAppointment/Scripts/jquery-ui.js" type="090e0fe188f4a535d1fb391b-text/javascript"></script>
+
+    <link href="/GlobalAppointment/Content/themes/base/jquery-ui.css" rel="stylesheet"/>
+
+
+
+
+
+
+    
+    <style type="text/css">
+        #header-title {
+            display: none;
+        }
+
+        .help {
+            width: 30px;
+            float: right;
+            margin-right: 8px;
+        }
+
+        li {
+            list-style: none;
+        }
+
+        .modal-body {
+            max-height: 600px;
+        }
+
+        div#modalBox div#modalBoxBody div.modalBoxBodyContent {
+            overflow: scroll;
+            height: 500px;
+        }
+    </style>
+
+    
+
+
+
+
+    <script type="090e0fe188f4a535d1fb391b-text/javascript">
+        function noBack() { window.history.forward(); }
+        $.ajaxSetup({ cache: false });
+        $(document).ready(function () {
+
+            //$(".help").on('click', function () {
+            //    $("#dialog").dialog({ width: 900 });
+            //});
+
+
+
+
+
+            $('.input_capital').on('input', function (evt) {
+                $(this).val(function (_, val) {
+                    return val.toUpperCase();
+                });
+            });
+
+            //number only
+            function isNumber(evt) {
+                evt = (evt) ? evt : window.event;
+                var charCode = (evt.which) ? evt.which : evt.keyCode;
+                // if (charCode == 46 && charCode > 31 && (charCode < 48 || charCode > 57)) {
+                if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+                    return false;
+                }
+
+                return true;
+            }
+
+            $(".only_number").keypress(function (e) {
+                //if the letter is not digit then display error and don't type anything
+                if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+                    //display error message
+                    $("#errmsg").html("Digits Only").show().fadeOut("slow");
+                    return false;
+                }
+            });
+
+            $(".openDialog").on("click", function (e) {
+                e.preventDefault();
+
+                $("<div></div>")
+                    .addClass("dialog")
+                    .attr("id", $(this)
+                        .attr("data-dialog-id"))
+                    .appendTo("body")
+                    .dialog({
+                        title: $(this).attr("data-dialog-title"),
+                        close: function () { window.location.reload(); },
+                        modal: true,
+                        width: 1036,
+                        height: 420,
+                        left: 0
+
+                    })
+                    .load(this.href);
+
+            });
+
+            //$(".close").live("click", function (e) {
+            //    e.preventDefault();
+            //    $(this).closest(".dialog").dialog("close");
+            //});
+        });
+
+
+    </script>
+
+    <style type="text/css" id="antiClickjack">
+        body {
+            display: none !important;
+        }
+    </style>
+    <script type="090e0fe188f4a535d1fb391b-text/javascript">
+        if (self === top) {
+            var antiClickjack = document.getElementById("antiClickjack");
+            antiClickjack.parentNode.removeChild(antiClickjack);
+        } else {
+            top.location = self.location;
+        }
+    </script>
+    <script type="090e0fe188f4a535d1fb391b-text/javascript">
+        $(document).ready(function () {
+            var missionname = "";
+            var countryname = "";
+            $.ajax({
+                type: 'POST',
+                url: '/GlobalAppointment/Account/SetMissionAndCountry', //  calling json method
+                data: {},
+                dataType: "json",
+                cache: false,
+                success: function (data) { //ajax call
+                    if (data != "") {
+                    }
+                }
+            })
+
+        });
+    </script>
+    <script type="090e0fe188f4a535d1fb391b-text/javascript">
+        $(document).ready(function () {
+            var missionname = "";
+            var countryname = "";
+            
+        });
+
+    </script>
+
+
+
+    <script type="090e0fe188f4a535d1fb391b-text/javascript">
+    // Transaction//
+    $(document).ready(function () {
+        $ApplicantGroupId = $("#ApplicantGroupId").val();
+        if ($ApplicantGroupId != null && $ApplicantGroupId != "")
+        {
+            $.ajax({
+                type: 'GET',
+                url: '/GlobalAppointment/Payment/getGoogleAnalyticsValue', //  calling json method
+                data: { ApplicantGroupId: $ApplicantGroupId },
+                dataType: "json",
+                cache: false,
+                success: function (getresult) { //ajax call
+                    var JsonStringyfy = JSON.stringify(getresult);
+                    var jsonObject = JSON.parse(JsonStringyfy);
+                    if (jsonObject != null) {
+                        var productlength = JSON.stringify(jsonObject.getgooglemodel.ecommerce.purchase.products.length);
+                        window.dataLayer = window.dataLayer || [];
+                        window.dataLayer.push({
+                            'Applicants': jsonObject.getgooglemodel.NumberofApplicants,
+                            'Vas Applicants': jsonObject.getgooglemodel.NumberofVASApplicants,
+                            'Vas Quantity': jsonObject.getgooglemodel.VASQuantity,
+                            'ecommerce': {
+                                'currencyCode': jsonObject.getgooglemodel.ecommerce.CurrencyCode,
+                                'purchase': {
+                                    'actionField': {
+                                        'id': jsonObject.getgooglemodel.ecommerce.purchase.actionField.TransactionID,                         // Transaction ID. Required for purchases and refunds.
+                                        'affiliation': jsonObject.getgooglemodel.ecommerce.purchase.actionField.affiliation,
+                                        'revenue': jsonObject.getgooglemodel.ecommerce.purchase.actionField.revenue,                     // Total transaction value (incl. tax and shipping)
+                                        'tax': jsonObject.getgooglemodel.ecommerce.purchase.actionField.tax,
+                                        'shipping': jsonObject.getgooglemodel.ecommerce.purchase.actionField.shipping,
+                                        'coupon': jsonObject.getgooglemodel.ecommerce.purchase.actionField.coupon
+                                    },
+                                    'products': buildProducts(jsonObject.getgooglemodel.ecommerce.purchase.products)
+                                }
+                            }
+                        });
+                    }
+                }
+            });
+        }
+        function buildProducts(JsonOject) {
+
+            var theProducts = [];
+            var length = JsonOject.length;
+            for (var i = 0; i < length; i++) {
+                var prod_brand = JsonOject[i].brand;
+                var prod_id = JsonOject[i].id;
+                var prod_name = JsonOject[i].name;
+                var prod_price = JsonOject[i].price;
+                var prod_category = JsonOject[i].category;
+                var prod_variant = JsonOject[i].variant;
+                var prod_Quantity = JsonOject[i].quantity
+
+                theProducts.push({
+                    'name': prod_name,        			// Name of the Product
+                    'id': prod_id,							  	// Product code to be passed like PV, SPV, BPP, GPP as per the current system
+                    'price': prod_price,						// Price of the unit product
+                    'brand': prod_brand,					// should be in the form From Coutry/To Country
+                    'category': prod_category,						// To be passed as VAS
+                    'variant': prod_variant,				// VAC Name
+                    'quantity': prod_Quantity
+                });
+            }
+
+            return theProducts;
+        }
+
+        (function (w, d, s, l, i) { w[l] = w[l] || []; w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' }); var f = d.getElementsByTagName(s)[0], j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src = '//www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f); })(window, document, 'script', 'dataLayer', 'GTM-K3RCXTZ');
+  });
+
+    </script>
+    <!-- Google Tag Manager -->
+    <script type="090e0fe188f4a535d1fb391b-text/javascript">(function (w, d, s, l, i) { w[l] = w[l] || []; w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' }); var f = d.getElementsByTagName(s)[0], j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src = '//www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f); })(window, document, 'script', 'dataLayer', 'GTM-K3RCXTZ');</script> <!-- End Google Tag Manager -->
+
+
+</head>
+
+<script src="/cdn-cgi/scripts/7d0fa10a/cloudflare-static/rocket-loader.min.js" data-cf-settings="090e0fe188f4a535d1fb391b-|49"></script><body onload="noBack();">
+
+    <!-- Google Tag Manager (noscript) --> <noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-K3RCXTZ" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript> <!-- End Google Tag Manager (noscript) -->
+    <!--wrapper starts here-->
+    <!--wrapper starts here-->
+    <!-- header starts here -->
+
+            <div class="header">
+                <div class="wrapper">
+                    <div class="logo" title="vfs global complaint management system" style="margin-left: 0px;"></div>
+                    <a href="http://www.vfsglobal.com/" target="_blank"></a>
+                    <div class="header-title" id="header-title" style="float: right; margin-right: 13px;">
+                        <span>
+                            Apply for VISA to
+                            <img src="/GlobalAppointment/content/cms-styles/images/missionimage.png" style="margin: 0 7px; vertical-align: -5px; border: 2px solid #fff" />
+                            india
+                        </span>
+                    </div>
+
+                </div>
+            </div>
+
+
+
+
+    <!-- header ends here -->
+    <!-- main container starts here -->
+    <div class="wrapper">
+        <div class="main-container">
+            
+
+
+
+            <a class="openmodalbox" href="javascript:void(0);" title="Demo - Show hidden content (span.modalboxContent)">
+                <img class="help" style="cursor: pointer" title="help" src="/GlobalAppointment/Content/App-Styles/images/help.png" />
+                <span class="modalboxContent">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="myModalLabel">Help</h4>
+                    </div>
+                    <div id="modalbody" class="modal-body">
+
+  <p>
+  <b>1.Schedule an appointment:</b>
+  To schedule an appointment use Schedule an appointment link on the left menu. Scheduling an appointment involves following steps:
+</p>
+<ul>
+  <li>a.	Select Mission (option available only for CC User. For Individual /TA’s this option is disabled.)</li>
+  <li>b.	Select Country (option available only for CC User. For Individual /TA’s this option is disabled.)</li>
+  <li>c.	Select location : Center can be visa application center (VAC), Embassy</li>
+  <li>d.	Select Appointment Category</li>
+  <li>e.	Click on “Continue” button to go to Customer List Page. </li>
+  <li>f.	Customer list: Initially customer list will be empty. Login User need to add customer/s before he/she proceed with appointment date selection. </li>
+  <li>g.	Date & time slot selection: After adding customer/s, on click of continue, user will be taken to final calendar page where user will see appointment dates (in green) and holidays (in red).</li>
+  <li>h.	User can select the date and time slot and confirm.</li>
+  <li>i.	Appointment confirmation: Click on “Confirm” button in the final calendar page</li>
+  <li>j.	An email & SMS will be triggered to the customer/s after appointment is confirmed. </li>
+</ul>
+<p>
+  <b>2.	Reschedule an appointment:</b> To reschedule an appointment, user need to have the reference number with valid future appointment. User can click on “reschedule an appointment” link.
+</p>
+<ul>
+  <li>a.	Enter the reference number and click on submit to get the customer/s details</li>
+  <li>b.	User can select the customer/s to reschedule and click on continue to proceed to final calendar to select date & time</li>
+  <li>c.	Upon selection date & time, can confirm the appointment by clicking confirm button.</li>
+  <li>d.	Appointment confirmation message will be displayed</li>
+  <li>e.	An email & SMS will be triggered to the customer/s</li>
+</ul>
+<p>
+  <b>3.	Cancel an Appointment:</b> To cancel an appointment, user need to have the reference number with valid future appointment. User can click on “Cancel an appointment” link.
+</p>
+<ul>
+  <li>a.	Enter the reference number and click on submit to get the customer/s details</li>
+  <li>b.	User can select the customer/s to cancel and click on continue.</li>
+  <li>c.	Appointment cancellation confirmation message will be displayed</li>
+  <li>d.	An email & SMS will be triggered to the customer/s</li>
+</ul>
+<p>
+  <b>4.	Print or Email Appointment Letter:</b>  To print an appointment letter, user need to have the reference number with valid future appointment. User can click on “Print an appointment” link.
+</p>
+<ul>
+  <li>a.	Enter the reference number and click on submit to get the customer/s details</li>
+  <li>b.	User can select the customer/s to print and click on “Download appointment letter” button.</li>
+  <li>c.	An email & SMS will be triggered to the customer</li>
+
+</ul>
+<p>
+  <b>5.	Retrieve Incomplete Appointment:</b>  To retrieve an incomplete appointment, user need to have the reference number. User can click on “Retrieve Incomplete appointment” link.
+</p>
+<ul>
+  <li>a.	Enter the reference number and click on submit to get the customer/s details</li>
+  <li>b.	Login User can also add customer/s before he/she proceed with appointment date selection.</li>
+  <li>c.	User can select the customer/s to schedule and click on continue to proceed to final calendar to select date & time</li>
+  <li>d.	Upon selection date & time, can confirm the appointment by clicking confirm button.</li>
+  <li>e.	Appointment confirmation message will be displayed</li>
+  <li>f.	An email & SMS will be triggered to the customer/s</li>
+</ul>
+                    </div>
+                </span>
+            </a>
+
+            <div class="mandatory-txt">
+                
+
+
+
+                <span class="mandatory">    <div class="user-loggedin">
+<form action="/GlobalAppointment/Account/LogOff" id="logoutForm" method="post"><input name="__RequestVerificationToken" type="hidden" value="xFchpqRZEbIS8NPsmqIjRvuD6bybCtZO2a8Zv699R6wv6twYW8rw2oxhA66rGJMcFaRlQCpCu_bVDShL3F1PEndqL4TDO9Q_fdSu8vzW-WBzbYmZJNARRKrCqNdcuucb0" />            <label style="color: black; font-size: 10pt">Welcome </label>
+            <label class="header-user" style="color: black">Jeams creative !</label>
+            <a href="javascript:document.getElementById('logoutForm').submit()">
+                <span style="color: black" class="header-txt">Logout</span></a>
+</form>    </div>
+ </span>
+
+
+            </div>
+
+            <!-- left panel starts here -->
+            
+            <div id="sidebar" class="leftpanel">
+
+    <div id="Accordion1" class="Accordion" tabindex="0">
+        <div class="AccordionPanel">
+            <div class="AccordionPanelTab" id="active">
+                <h3>Actions</h3>
+            </div>
+            <div class="AccordionPanelContent">
+                <div class="leftpanel-links">
+                    <ul class="leftNav-ul">
+                        
+
+
+<script type="090e0fe188f4a535d1fb391b-text/javascript">
+    $(document).ready(function () {
+        
+        $('#banner0').attr('src', null);
+        $('#banner1').attr('src', null);
+        $('#banner2').attr('src', null);
+         //CR462 (Start) Displaying BannerImages on leftnavlink
+       $.ajax
+                    ({
+                         type: "GET",
+                        url: "/GlobalAppointment/Home/UpdateLeftNavLinks",
+                        dataType: 'JSON',
+                        data: {},
+                         cache: false,
+                        success: function (result)
+                        {
+                            
+                            $('#banner0').css('display', 'none');
+                            $('#banner1').css('display', 'none');
+                            $('#banner2').css('display', 'none');
+                            
+                            if (result != null) {
+                               
+                                for (var i = 0; i < result.success.length; i++) {                                   
+                                     
+                                    if ((result.success[i].Images != undefined) && (result.success[i].Images != "")) {
+                                       
+                                        $('#banner' + i).html('<p title="' + result.success[i].TootlTip + '" style="margin-bottom:0px;"><a href="' + result.success[i].URL + '" target="_blank"  style="cursor: pointer;padding:0px"><img src="data:image/png;base64,' + result.success[i].Images + '" height="50px;" width="100%"/></a></p>').css('display', 'block');
+                                    }
+
+                                    
+                                   
+                              
+                                }
+                                
+                            }
+
+                        }
+                        
+                    });
+
+    });
+     //CR462 (End) Displaying BannerImages on leftnavlink
+</script>
+
+
+
+
+                    <li class="inactive-link"><a  href='/GlobalAppointment/Home/SelectVAC?q=dePiaPfL2MJ7yDPEmQRU6fRZbx3aIpSal6PdG3Bxqq7rSNU6HabciCVot9dEwkhd'>Schedule Appointment</a></li> <!--Schedule = 1 -->
+                    <li class="inactive-link"><a  href='/GlobalAppointment/Home/SearchAppointment?q=dePiaPfL2MJ7yDPEmQRU6WnOkPrE9bJM5xT4iMTvaIzGfuQ9XBMKbeC7YmemmJ63'>Cancel Appointment</a></li> <!--Cancel = 3 -->
+                <li class="inactive-link"><a  href='/GlobalAppointment/Home/SearchAppointment?q=dePiaPfL2MJ7yDPEmQRU6TIImdTosAUGrExVqg2QP1SufzZ67cxYVETmR40lbLsy'>Email Appointment Letter</a></li> <!--Print = 4 -->
+                <li class="inactive-link"><a  href='/GlobalAppointment/Home/SearchAppointment?q=dePiaPfL2MJ7yDPEmQRU6buv0a4SqqvgSfMfLcEJhU/6UnikKwvVRTTaULbIYxyOyQzn4zK/139hZCYECOHJuw=='>Retrieve Incomplete Appointments</a></li> <!--RIC = 5 -->
+
+
+
+
+
+
+    <li id="banner0" class="inactive-link" style="border: 1px solid;display:none;padding:0px;">  </li> 
+    <li id="banner1" class="inactive-link" style="border: 1px solid;display: none;padding: 0px;">  </li>
+    <li id="banner2" class="inactive-link" style="border: 1px solid;display: none;padding: 0px;">  </li>
+    
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+            </div>
+            <!-- left panel ends here -->
+            <style>
+    .fc-highlight {
+        background: none;
+    }
+
+    .fc-cell-overlay {
+        cursor: pointer;
+    }
+</style>
+
+<style>
+    .show-read-more .more-text {
+        display: none;
+    }
+</style>
+
+<style>
+    #chkdiv {
+        padding: 0px 0px 10px 0px;
+        margin-bottom: 20px;
+        font-size: 13px;
+    }
+
+    .plp {
+        display: none;
+    }
+</style>
+<div class="rightpanel">
+    <h1>Appointment Booking</h1>
+        <div class="page-nav">Schedule Appointment&nbsp;&nbsp;>&nbsp;&nbsp;<span>Select Centre</span>&nbsp;&nbsp;>&nbsp;&nbsp;<span>Customer List</span>&nbsp;&nbsp;>&nbsp;&nbsp;<span>Appointment Booking</span></div>
+
+
+    <br />
+
+    <div class="mandatory-txt" style="float: right">
+        <label>Reference Number: <b>MLB33205679185</b></label>
+    </div>
+
+    <div class="frm-container" id="inline-popups">
+
+<form action="/GlobalAppointment/Calendar/FinalCalendar" id="calform" method="post"><input name="__RequestVerificationToken" type="hidden" value="eUaI3COKNSUYhpK2iqoGlzwZwbNTfVpaWy_t8kBy58TCzAro8-kyLXTa9JN7KCzVXdQyVoEoNK5BpsZdIe1ukgmZtPEx2jYiBQhabHZ96iJEgt1qp_lILKwPUbydtGWA0" /><input id="AvailableDatesAndSlotsJSON" name="AvailableDatesAndSlotsJSON" type="hidden" value="[]" /><input id="EncryptedSelectedAllocationId" name="EncryptedSelectedAllocationId" type="hidden" value="" /><input id="PreviousScheduleDateTimeMessage" name="PreviousScheduleDateTimeMessage" type="hidden" value="" /><input id="URN" name="URN" type="hidden" value="MLB33205679185" /><input data-val="true" data-val-required="The isPaymentPageRequired field is required." id="isPaymentPageRequired" name="isPaymentPageRequired" type="hidden" value="False" /><input data-val="true" data-val-required="The isCriteriaPageRequired field is required." id="isCriteriaPageRequired" name="isCriteriaPageRequired" type="hidden" value="False" /><input id="VisaCategory" name="VisaCategory" type="hidden" value="Work Visa (Employment Visa/work Independent Visa)" /><input id="PurposeOfTravel" name="PurposeOfTravel" type="hidden" value="" /><input data-val="true" data-val-required="The EnablePaymentGatewayIntegration field is required." id="EnablePaymentGatewayIntegration" name="EnablePaymentGatewayIntegration" type="hidden" value="True" /><input data-val="true" data-val-number="The field NumberOfApplicants must be a number." data-val-required="The NumberOfApplicants field is required." id="NumberOfApplicants" name="NumberOfApplicants" type="hidden" value="1" /><input data-val="true" data-val-length="Max 50 characters permitted." data-val-length-max="50" data-val-regex="Please use only letters and numbers" data-val-regex-pattern="^[0-9a-zA-Z ]+$" id="applicantList_PassportNumber" name="applicantList.PassportNumber" type="hidden" value="" /><input data-val="true" data-val-length="Max 50 characters permitted." data-val-length-max="50" id="applicantList_AURN" name="applicantList.AURN" type="hidden" value="" /><input data-val="true" data-val-number="The field EarliestAllotedMonth must be a number." data-val-required="The EarliestAllotedMonth field is required." id="EarliestAllotedMonth" name="EarliestAllotedMonth" type="hidden" value="7" /><input data-val="true" data-val-number="The field EarliestAllotedYear must be a number." data-val-required="The EarliestAllotedYear field is required." id="EarliestAllotedYear" name="EarliestAllotedYear" type="hidden" value="2022" /><input data-val="true" data-val-required="The IsPaymentAtBank field is required." id="IsPaymentAtBank" name="IsPaymentAtBank" type="hidden" value="False" /><input data-val="true" data-val-number="The field IsPaymentAtVac must be a number." data-val-required="The IsPaymentAtVac field is required." id="IsPaymentAtVac" name="IsPaymentAtVac" type="hidden" value="0" /><input id="applicantList_AppointmentType" name="applicantList.AppointmentType" type="hidden" value="StandardAppointment" /><input id="CalendarDayForInitial" name="CalendarDayForInitial" type="hidden" value="" /><input data-val="true" data-val-number="The field CurrentMonthForCalendar must be a number." data-val-required="The CurrentMonthForCalendar field is required." id="CurrentMonthForCalendar" name="CurrentMonthForCalendar" type="hidden" value="0" /><input data-val="true" data-val-number="The field CurrentYearForCalendar must be a number." data-val-required="The CurrentYearForCalendar field is required." id="CurrentYearForCalendar" name="CurrentYearForCalendar" type="hidden" value="0" />            <input type="hidden" id="monthsname" name="monthsname" value="January,February,March,April,May,June,July,August,September,October,November,December" />
+            <input type="hidden" id="daysname" name="daysname" value="Sun,Mon,Tue,Wed,Thu,Fri,Sat" />
+            <div class="frm-element-div">
+                <div class="">
+<label for="Appointment_Category">Appointment Category</label>                    
+                    <label for="VisaCategory" style="font-weight:normal;padding-left:10px;">Work Visa (Employment Visa/work Independent Visa)</label>
+                </div>
+
+            </div>
+                <style>
+                    #chkdiv {
+                        display: none;
+                    }
+                </style>
+            <div id="chkdiv">
+                <input checked="checked" id="BookingcategoryType" name="BookingcategoryType" type="radio" value="General" />  General &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <input id="BookingcategoryType" name="BookingcategoryType" type="radio" value="PL" /> Priority Lounge
+
+                <p class="plp">Premium quota includes more service and extra charge. <a href="#test-popup" data-effect="mfp-zoom-in" class="manage-services" data-id="1">Read More</a>       </p>
+
+            </div>
+            <div id="test-popup" class="white-popup mfp-with-anim mfp-hide">
+                <p> <b>Premium Quota:</b> </p> <p>Premium service includes Transport service, Waiting Lounge.seperate counter and other service. </p> <p> <b>Note:</b> Extra charges apply </p>
+
+                
+
+            </div>
+            <table style="width: 100%;">
+                <tr>
+                    <td style="width: 50%" id="caldiv">
+                        <div id='calendar'></div>
+                    </td>
+                    <td style="padding-left: 10px;">
+                        <table>
+                            <tr>
+                                <td style="width: 20px">
+                                    <div style="width: 15px; height: 15px; background-color: #FF6A6A; border: 1px solid #9a8f8f;" />
+                                </td>
+                                <td>
+                                    <span>Holidays</span>
+                                </td>
+                                <td />
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div style="width: 15px; height: 15px; background-color: #BCED91; border: 1px solid #9a8f8f;" />
+                                </td>
+                                <td>
+                                    <span>Available</span>
+                                </td>
+                                <td />
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div style="width: 15px; height: 15px; background-color: #FF96CA; border: 1px solid #9a8f8f;" />
+                                </td>
+                                <td>
+                                    <span>Date Selected</span>
+                                </td>
+                                <td />
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div style="width: 15px; height: 15px; background-color: #faf9f9; border: 1px solid #9a8f8f;" />
+                                </td>
+                                <td>
+                                    <span>Not Available</span>
+                                </td>
+                                <td />
+                            </tr>
+                        </table>
+                    </td>
+                    <td style="width: 30%; vertical-align: top;">
+                        <div id="TimeBandsDiv" style="">
+                        </div>
+                    </td>
+                </tr>
+
+
+
+            </table>
+            <div><br /><br /></div>
+                    <div id="PlaceholderDesc" class="show-read-more" title="PlaceholderDescription"></div>
+            <div class="frm-button">
+                        <input type="button" id="btnBackService" value="Back" onclick="if (!window.__cfRLUnblockHandlers) return false; fnBackServicePage()" class="submitbtn" style="margin-right:5px;" data-cf-modified-090e0fe188f4a535d1fb391b-="" />
+                        <input type="button" id="btnCancel" value="Cancel" onclick="if (!window.__cfRLUnblockHandlers) return false; ReleaseApplicantIfNotSchedule()" class="submitbtn" style="margin-right:5px;" data-cf-modified-090e0fe188f4a535d1fb391b-="" />
+                                <input type="submit" id="btnConfirm" value="Confirm" class="submitbtn" />
+            </div>
+</form>    </div>
+</div>
+<div class="ui-autocomplete-loading" id="LoadingInfo" style="width: 460px; height: 357px; position: absolute; background-color: rgba(250, 249, 249, 0.73); top: 150px; left: 300px;">
+    <img src="/GlobalAppointment/Content/App-Styles/images/cube.gif" style="line-height: 10%; margin-top: 30%;">
+    <div style="background:url(/GlobalAppointment/Content/App-Styles/images/cube.gif) no-repeat center center;width:32px;height:32px;  margin-left:50%;"></div>
+</div>
+
+
+
+
+
+            <div id="loading" style="display: none;"></div>
+            <img src="/GlobalAppointment/Content/App-Styles/images/cube.gif" alt="Please wait ..." class="loaderImg" style="display: none;" />
+
+        </div>
+        
+                        <div id="footer">
+
+                        <div>
+                            
+                            <span style="float: left; padding-left: 10px; padding-top: 9px;">VFS Global Services Limited</span>
+                            <p style="text-align: right; padding-right: 10px; padding-top: 9px">Application version 12 and Site Supports IE 10 and above, Mozilla, Google Chrome</p>
+                        </div>
+
+                </div>
+        <!-- main container ends here -->
+        <!-- footer starts here -->
+        <!-- footer ends here -->
+    </div>
+    <!--wrapper ends here-->
+    <script type="090e0fe188f4a535d1fb391b-text/javascript">
+    var Accordion1 = new Spry.Widget.Accordion("Accordion1");
+
+
+        $(document).ready(function () {
+        var _mission = getParameterByName("mission");
+        var _country = getParameterByName("country");
+        function getParameterByName(name) {
+            name = name.replace(/[\[]/, "\\\[").replace(/[\]]/, "\\\]");
+            var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+                results = regex.exec(location.search);
+            return results == null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+            }
+
+
+        var IsCustomBannerChangesEnabled = 'True';
+        if (IsCustomBannerChangesEnabled == 'True')//Actual
+        {
+            if ('Hp.Vfs.Apps.Online.Appointment.Models.ViewModels.SetMissionAndCountryValues' == null || 'Hp.Vfs.Apps.Online.Appointment.Models.ViewModels.SetMissionAndCountryValues' == "")
+            {
+
+                $.ajax({
+                    type: 'POST',
+                    url: '/GlobalAppointment/Account/SetMissionAndCountry', //  calling json method
+                    data: {},
+                    dataType: "json",
+                    cache: false,
+                    success: function (data) { //ajax call
+                     
+                        missionname = data.mission;
+                        countryname = data.country;
+                        var existMissionName = "Croatia,Norway,NIA,Denmark,Slovenia,Czech Republic,Malta,Iceland,Hungary,Luxembourg,BVN,Cyprus,Finland,IHC,Italia,Dutch Caribbean,Ireland,Italia Embassy,Slovakia,France Embassy,Croatia,LatviaConsulate,LatviaEmbassy,Embassy of France,Lesotho,Czech,Austriaa";
+                        var updatedMissionyName = "Croatia,Norway,NIA,Denmark,Czech-Republic,Malta,Iceland,Hungary,Luxembourg,BVN,Cyprus,Finland,IHC,Italia,Dutch Caribbean,Ireland,Italia,Dutch Caribbean,Slovakia,France,Croatia,Latvia,Latvia,France,Lesotho,Czech-Republic,Austria";
+                        var arrupdatedMissionName = updatedMissionyName.split(",");
+                        var arrexistMissionName = existMissionName.split(",");
+
+                        for (var i = 0; i < arrexistMissionName.length; i++) {
+
+                            if (arrexistMissionName[i] == missionname) {
+                                missionname = arrexistMissionName[i];
+                            }
+                        }
+
+                        var existCountryName = "United Kingdom,Abidjan,Bosnia and Herzegovina,CCBelarus,CZech Republic,Democratic Republic of Congo,Denmark,Dominican Republic,Ethiopia- Interview,Guinea Bissau,Hong Kong,India-Interview,India-RP-Interview,nterview Student -Non Indian,IR,IRAQ-KRG,Ivory Coast,KSA,Lesotho,Nigeria - RP,Nigeria-Interview,PALESTINIAN TERRITORIES,Papua New Guinea,Republic of Ireland,REPUBLIC OF KOSOVO,Republic of Macedonia,Saudi Arabia,Sudan,TurkeyEmbassy,UKEmbassy,United Kingdom,United States of America,Zambia";
+                        var updatedCountryName = "UK,Abidjan,Bosnia-Herzegovina,Belarus,Czech-Republic,Democratic-Republic-of-Congo,Denmark,Dominican-Republic,Ethiopia,Guinea-Bissau,HongKong,India,India,Non-Indian,Ireland,Iraq,Ivory-Coast,South Africa,Lesotho-Permit,Nigeria,Nigeria,Palestine,Guinea,Republic of Ireland,Kosovo,Macedonia,SaudiArabia,Sudan,Turkey,UK,UK,USA,Zambia";
+                        var arrupdatedCountryName = updatedCountryName.split(',');
+                        var arrexistCountryName = existCountryName.split(',');
+                        for (var i = 0; i < arrexistCountryName.length; i++) {
+                            if (arrexistCountryName[i] == countryname) {
+                                countryname = arrupdatedCountryName[i];
+                            }
+                        }
+                        window.dataLayer = window.dataLayer || [];
+                        window.dataLayer.push({
+                            'Mission': missionname,
+                            'Country Of Operation': countryname,
+                            'Website Language': data.cultureName,
+                        });
+
+
+                        if (data != "" && data.EnabledBannerConfig == "True") {
+               
+                            var mission = data.mission != null && data.displayMission == "True" ? data.mission : '';
+                            var country = data.country != null && data.displayCountry == "True" ? data.country : '';
+                            var mastermission = data.mastermission;
+                            var mastercountry = data.mastercountry;
+                            var bannerTextLeft = data.bannerTextLeft != null && data.bannerTextLeft != "" ? data.bannerTextLeft : '';
+                            var bannerTextRight = data.bannerTextRight != null && data.bannerTextRight != "" ? data.bannerTextRight : '';
+                            var img = data.logoImage != null && data.logoImage != "" ? "data:image/jpg;base64," + data.logoImage : null;
+                            var imagpath = data.logoImage != null && data.logoImage != "" && data.logoImageIsActive != null && data.logoImageIsActive == "True" ? "<img src='" + img + "'style='margin: 0 7px; vertical-align: -5px;border:2px solid #fff' />" : '';
+
+                            $("#header-title").show();
+                            if (data != "" && data.EnabledBannerConfig == "True") { $("#header-title").html("<span>" + bannerTextLeft + " " + mission + "" + imagpath + " " + bannerTextRight + " " + country + "</span>"); }
+                            else {  $("#header-title").html("<span>" + bannerText + " " + mission + "" + imagpath + " " + 'In' + " " + country + "</span>");}
+
+                            //if (data.logoImage !=null && data.logoImageIsActive == "True") {
+                            //    img = "data:image/jpg;base64," + data.logoImage;
+                            //    imagpath = "<img src='" + img + "'style='margin: 0 7px; vertical-align: -5px;border:2px solid #fff' />";
+                            //    $("#header-title").html("<span>" + bannerTextLeft + " " + mission + "" + imagpath + " " + bannerTextRight + " " + country + "</span>");
+                            //}
+                            //else if (data.logoImageIsActive == "False") {
+                            //    $("#header-title").html("<span>" + bannerTextLeft + " " + mission + " " + bannerTextRight + " " + country + "</span>");
+                            //}
+
+                        }
+                        else {
+                         
+                            if (data != "")
+                            {
+                                var mission = data.mission;
+                                var country = data.country;
+                                var mastermission = data.mastermission;
+                                var mastercountry = data.mastercountry;
+                                var bannerText = data.bannerText;
+                                var newsrcFolder = '/GlobalAppointment/content/App-Styles/images/flags/';
+                                var img = newsrcFolder + mastermission.toLowerCase().replace(" ", "") + ".jpg";
+                                var imagpath = "<img src='" + img + "'style='margin: 0 7px; vertical-align: -5px;border:2px solid #fff' />";
+                                $("#header-title").show();
+                                $("#header-title").html("<span>" + bannerText + " " + mission + "" + imagpath + " " + 'In' + " " + country + "</span>");
+                            }
+                            else {
+                                $("#header-title").empty();
+                            }
+                        }
+                    }
+                });
+            }
+            else
+            {
+
+               var jsonTestData = {"EnabledBannerConfig":"False","missionNamee":"MALTA","countryNamee":"INDIA","mastermission":"MALTA","mastercountry":"INDIA","bannerText":"Apply for VISA to","displayMission":null,"displayCountry":null,"logoImageIsActive":null,"bannerTextLeft":null,"bannerTextRight":null,"cultureNamee":"English","logoImage":null,"CustomBannerChangesEnabled":false}
+                missionname = jsonTestData.missionNamee;
+                countryname = jsonTestData.countryNamee;
+                        var existMissionName = "Croatia,Norway,NIA,Denmark,Slovenia,Czech Republic,Malta,Iceland,Hungary,Luxembourg,BVN,Cyprus,Finland,IHC,Italia,Dutch Caribbean,Ireland,Italia Embassy,Slovakia,France Embassy,Croatia,LatviaConsulate,LatviaEmbassy,Embassy of France,Lesotho,Czech,Austriaa";
+                        var updatedMissionyName = "Croatia,Norway,NIA,Denmark,Czech-Republic,Malta,Iceland,Hungary,Luxembourg,BVN,Cyprus,Finland,IHC,Italia,Dutch Caribbean,Ireland,Italia,Dutch Caribbean,Slovakia,France,Croatia,Latvia,Latvia,France,Lesotho,Czech-Republic,Austria";
+                        var arrupdatedMissionName = updatedMissionyName.split(",");
+                        var arrexistMissionName = existMissionName.split(",");
+
+                        for (var i = 0; i < arrexistMissionName.length; i++) {
+
+                            if (arrexistMissionName[i] == missionname) {
+                                missionname = arrexistMissionName[i];
+                            }
+                        }
+
+                        var existCountryName = "United Kingdom,Abidjan,Bosnia and Herzegovina,CCBelarus,CZech Republic,Democratic Republic of Congo,Denmark,Dominican Republic,Ethiopia- Interview,Guinea Bissau,Hong Kong,India-Interview,India-RP-Interview,nterview Student -Non Indian,IR,IRAQ-KRG,Ivory Coast,KSA,Lesotho,Nigeria - RP,Nigeria-Interview,PALESTINIAN TERRITORIES,Papua New Guinea,Republic of Ireland,REPUBLIC OF KOSOVO,Republic of Macedonia,Saudi Arabia,Sudan,TurkeyEmbassy,UKEmbassy,United Kingdom,United States of America,Zambia";
+                        var updatedCountryName = "UK,Abidjan,Bosnia-Herzegovina,Belarus,Czech-Republic,Democratic-Republic-of-Congo,Denmark,Dominican-Republic,Ethiopia,Guinea-Bissau,HongKong,India,India,Non-Indian,Ireland,Iraq,Ivory-Coast,South Africa,Lesotho-Permit,Nigeria,Nigeria,Palestine,Guinea,Republic of Ireland,Kosovo,Macedonia,SaudiArabia,Sudan,Turkey,UK,UK,USA,Zambia";
+                        var arrupdatedCountryName = updatedCountryName.split(',');
+                        var arrexistCountryName = existCountryName.split(',');
+                        for (var i = 0; i < arrexistCountryName.length; i++) {
+                            if (arrexistCountryName[i] == countryname) {
+                                countryname = arrupdatedCountryName[i];
+                            }
+                        }
+                        window.dataLayer = window.dataLayer || [];
+                        window.dataLayer.push({
+                            'Mission': jsonTestData.missionNamee/*missionname*/,
+                            'Country Of Operation': jsonTestData.countryNamee/*countryname*/,
+                            'Website Language': jsonTestData.cultureNamee/*data.cultureName*/,
+                        });
+
+                if (jsonTestData != "")
+                {
+                    if (jsonTestData.EnabledBannerConfig == "True") {
+                        var mission = ""; var mastermission = ""; var country = ""; var mastercountry = "";
+                        var img = ""; var imagpath = ""; var bannerTextRight = ""; var bannertextleft = "";
+                      
+
+
+                        if (jsonTestData.displayMission == "True") {
+                             mission = jsonTestData.missionNamee/*data.mission*/;
+                             mastermission = jsonTestData.mastermission/*data.mastermission*/;
+                        }
+
+
+                        if (jsonTestData.displayCountry == "True") {
+                             country = jsonTestData.countryNamee/*data.mission*/;
+                             mastercountry = jsonTestData.mastercountry/*data.mastermission*/;
+                        }
+
+
+
+                       // var bannertextleft = jsonTestData.bannerTextLeft;
+                        if (jsonTestData.bannerTextLeft != null) {  bannertextleft = jsonTestData.bannerTextLeft; }
+                        if (jsonTestData.bannerTextRight != null) {  bannerTextRight = jsonTestData.bannerTextRight; }
+                       
+                       
+                         img = jsonTestData.logoImage != null && jsonTestData.logoImage != "" ? "data:image/jpg;base64," + jsonTestData.logoImage : null;
+                         imagpath = jsonTestData.logoImage != null && jsonTestData.logoImage != "" && jsonTestData.logoImageIsActive != null && jsonTestData.logoImageIsActive == "True" ? "<img src='" + img + "'style='margin: 0 7px; vertical-align: -5px;border:2px solid #fff' />" : '';
+
+                    }
+                    else {
+                        
+                        var mastermission = jsonTestData.mastermission;
+                               
+                                var newsrcFolder = '/GlobalAppointment/content/App-Styles/images/flags/';
+                                 img = newsrcFolder + mastermission.toLowerCase().replace(" ", "") + ".jpg";
+                                 imagpath = "<img src='" + img + "'style='margin: 0 7px; vertical-align: -5px;border:2px solid #fff' />";
+                               
+                    //    var img = jsonTestData.logoImage != null && jsonTestData.logoImage != "" ? "data:image/jpg;base64," + jsonTestData.logoImage : null;
+                    //    var imagpath = jsonTestData.logoImage != null && jsonTestData.logoImage != "" && jsonTestData.logoImageIsActive != null && jsonTestData.logoImageIsActive == "True" ? "<img src='" + img + "'style='margin: 0 7px; vertical-align: -5px;border:2px solid #fff' />" : '';
+                    }
+                    
+
+
+
+                            $("#header-title").show();
+                      //$("#header-title").html("<span>" + bannertextleft + " " + mission + "" + imagpath + " " + 'Resources.Banner_CountryPrefix' + " " + country + "" + bannerTextRight + "</span>");
+                     // $("#header-title").html("<span>" + bannertextleft + " " + mission + "" + imagpath + " " + bannerTextRight + " " + country + "</span>");
+     
+                    if (jsonTestData != "" && jsonTestData.EnabledBannerConfig == "True")
+                    {
+                        $("#header-title").html("<span>" + bannertextleft + " " + mission + " " + imagpath + " " + bannerTextRight + " " + country + "</span>");
+                    }
+                    else
+                    {
+                        $("#header-title").html("<span>" + jsonTestData.bannerText + " " +jsonTestData.missionNamee  + "" + imagpath + " " + 'In' + " " +jsonTestData.countryNamee + "</span>");
+                    }
+
+
+                }
+                        else
+                        {
+                            $("#header-title").empty();
+                        }
+
+            }
+        }
+        else//Actual
+        {
+
+            if ('Hp.Vfs.Apps.Online.Appointment.Models.ViewModels.SetMissionAndCountryValues' == null || 'Hp.Vfs.Apps.Online.Appointment.Models.ViewModels.SetMissionAndCountryValues' == "")
+            {
+                $.ajax({
+                    type: 'POST',
+                    url: '/GlobalAppointment/Account/SetMissionAndCountry', //  calling json method
+                    data: {},
+                    dataType: "json",
+                    cache: false,
+                    success: function (data) { //ajax call
+                        missionname = data.mission;
+                        countryname = data.country;
+                        var existMissionName = "Croatia,Norway,NIA,Denmark,Slovenia,Czech Republic,Malta,Iceland,Hungary,Luxembourg,BVN,Cyprus,Finland,IHC,Italia,Dutch Caribbean,Ireland,Italia Embassy,Slovakia,France Embassy,Croatia,LatviaConsulate,LatviaEmbassy,Embassy of France,Lesotho,Czech,Austriaa";
+                        var updatedMissionyName = "Croatia,Norway,NIA,Denmark,Czech-Republic,Malta,Iceland,Hungary,Luxembourg,BVN,Cyprus,Finland,IHC,Italia,Dutch Caribbean,Ireland,Italia,Dutch Caribbean,Slovakia,France,Croatia,Latvia,Latvia,France,Lesotho,Czech-Republic,Austria";
+                        var arrupdatedMissionName = updatedMissionyName.split(",");
+                        var arrexistMissionName = existMissionName.split(",");
+
+                        for (var i = 0; i < arrexistMissionName.length; i++) {
+
+                            if (arrexistMissionName[i] == missionname) {
+                                missionname = arrexistMissionName[i];
+                            }
+                        }
+
+                        var existCountryName = "United Kingdom,Abidjan,Bosnia and Herzegovina,CCBelarus,CZech Republic,Democratic Republic of Congo,Denmark,Dominican Republic,Ethiopia- Interview,Guinea Bissau,Hong Kong,India-Interview,India-RP-Interview,nterview Student -Non Indian,IR,IRAQ-KRG,Ivory Coast,KSA,Lesotho,Nigeria - RP,Nigeria-Interview,PALESTINIAN TERRITORIES,Papua New Guinea,Republic of Ireland,REPUBLIC OF KOSOVO,Republic of Macedonia,Saudi Arabia,Sudan,TurkeyEmbassy,UKEmbassy,United Kingdom,United States of America,Zambia";
+                        var updatedCountryName = "UK,Abidjan,Bosnia-Herzegovina,Belarus,Czech-Republic,Democratic-Republic-of-Congo,Denmark,Dominican-Republic,Ethiopia,Guinea-Bissau,HongKong,India,India,Non-Indian,Ireland,Iraq,Ivory-Coast,South Africa,Lesotho-Permit,Nigeria,Nigeria,Palestine,Guinea,Republic of Ireland,Kosovo,Macedonia,SaudiArabia,Sudan,Turkey,UK,UK,USA,Zambia";
+                        var arrupdatedCountryName = updatedCountryName.split(',');
+                        var arrexistCountryName = existCountryName.split(',');
+                        for (var i = 0; i < arrexistCountryName.length; i++) {
+                            if (arrexistCountryName[i] == countryname) {
+                                countryname = arrupdatedCountryName[i];
+                            }
+                        }
+                        window.dataLayer = window.dataLayer || [];
+                        window.dataLayer.push({
+                            'Mission': missionname,
+                            'Country Of Operation': countryname,
+                            'Website Language': data.cultureName,
+                        });
+
+
+
+                        if (data != "") {
+                            var mission = data.mission;
+                            var country = data.country;
+                            var mastermission = data.mastermission;
+                            var mastercountry = data.mastercountry;
+                            var bannerText = data.bannerText;
+                            var newsrcFolder = '/GlobalAppointment/content/App-Styles/images/flags/';
+                            var img = newsrcFolder + mastermission.toLowerCase().replace(" ", "") + ".jpg";
+                            var imagpath = "<img src='" + img + "'style='margin: 0 7px; vertical-align: -5px;border:2px solid #fff' />";
+                            $("#header-title").show();
+                            $("#header-title").html("<span>" + bannerText + " " + mission + "" + imagpath + " " + 'In' + " " + country + "</span>");
+                        }
+                        else
+                        {
+                            $("#header-title").empty();
+                        }
+                    }
+                });
+            }
+            else
+            {
+                //console.log("if session data is present")
+                //console.log('test1');
+                //
+                //console.log('test2');
+
+                // console.log(jsonTestData);
+                //console.log(jsonTestData.countryNamee);
+                //console.log(jsonTestData.missionNamee);
+                //console.log(jsonTestData.cultureNamee);
+                var jsonTestData = {"EnabledBannerConfig":"False","missionNamee":"MALTA","countryNamee":"INDIA","mastermission":"MALTA","mastercountry":"INDIA","bannerText":"Apply for VISA to","displayMission":null,"displayCountry":null,"logoImageIsActive":null,"bannerTextLeft":null,"bannerTextRight":null,"cultureNamee":"English","logoImage":null,"CustomBannerChangesEnabled":false}
+                    missionname = jsonTestData.missionNamee;
+                    countryname = jsonTestData.countryNamee;
+                        var existMissionName = "Croatia,Norway,NIA,Denmark,Slovenia,Czech Republic,Malta,Iceland,Hungary,Luxembourg,BVN,Cyprus,Finland,IHC,Italia,Dutch Caribbean,Ireland,Italia Embassy,Slovakia,France Embassy,Croatia,LatviaConsulate,LatviaEmbassy,Embassy of France,Lesotho,Czech,Austriaa";
+                        var updatedMissionyName = "Croatia,Norway,NIA,Denmark,Czech-Republic,Malta,Iceland,Hungary,Luxembourg,BVN,Cyprus,Finland,IHC,Italia,Dutch Caribbean,Ireland,Italia,Dutch Caribbean,Slovakia,France,Croatia,Latvia,Latvia,France,Lesotho,Czech-Republic,Austria";
+                        var arrupdatedMissionName = updatedMissionyName.split(",");
+                        var arrexistMissionName = existMissionName.split(",");
+
+                        for (var i = 0; i < arrexistMissionName.length; i++) {
+
+                            if (arrexistMissionName[i] == missionname) {
+                                missionname = arrexistMissionName[i];
+                            }
+                        }
+
+                        var existCountryName = "United Kingdom,Abidjan,Bosnia and Herzegovina,CCBelarus,CZech Republic,Democratic Republic of Congo,Denmark,Dominican Republic,Ethiopia- Interview,Guinea Bissau,Hong Kong,India-Interview,India-RP-Interview,nterview Student -Non Indian,IR,IRAQ-KRG,Ivory Coast,KSA,Lesotho,Nigeria - RP,Nigeria-Interview,PALESTINIAN TERRITORIES,Papua New Guinea,Republic of Ireland,REPUBLIC OF KOSOVO,Republic of Macedonia,Saudi Arabia,Sudan,TurkeyEmbassy,UKEmbassy,United Kingdom,United States of America,Zambia";
+                        var updatedCountryName = "UK,Abidjan,Bosnia-Herzegovina,Belarus,Czech-Republic,Democratic-Republic-of-Congo,Denmark,Dominican-Republic,Ethiopia,Guinea-Bissau,HongKong,India,India,Non-Indian,Ireland,Iraq,Ivory-Coast,South Africa,Lesotho-Permit,Nigeria,Nigeria,Palestine,Guinea,Republic of Ireland,Kosovo,Macedonia,SaudiArabia,Sudan,Turkey,UK,UK,USA,Zambia";
+                        var arrupdatedCountryName = updatedCountryName.split(',');
+                        var arrexistCountryName = existCountryName.split(',');
+                        for (var i = 0; i < arrexistCountryName.length; i++) {
+                            if (arrexistCountryName[i] == countryname) {
+                                countryname = arrupdatedCountryName[i];
+                            }
+                        }
+                        window.dataLayer = window.dataLayer || [];
+                        window.dataLayer.push({
+                            'Mission': jsonTestData.missionNamee/*missionname*/,
+                            'Country Of Operation': jsonTestData.countryNamee/*countryname*/,
+                            'Website Language': jsonTestData.cultureNamee/*data.cultureName*/,
+                        });
+
+                  if (jsonTestData != "") {
+                            var mission = jsonTestData.missionNamee/*data.mission*/;
+                            var mastermission = jsonTestData.mastermission/*data.mastermission*/;
+                            var country = jsonTestData.countryNamee/*data.country*/;
+                            var mastercountry = jsonTestData.mastercountry/*data.mastercountry*/;
+                            var bannerText = jsonTestData.bannerText/*data.bannerText*/;
+                            var newsrcFolder = '/GlobalAppointment/content/App-Styles/images/flags/';
+                            var img = newsrcFolder + mastermission.toLowerCase().replace(" ", "") + ".jpg";
+                            var imagpath = "<img src='" + img + "'style='margin: 0 7px; vertical-align: -5px;border:2px solid #fff' />";
+                            $("#header-title").show();
+                            $("#header-title").html("<span>" + bannerText + " " + mission + "" + imagpath + " " + 'In' + " " + country + "</span>");
+                        }
+                        else
+                        {
+                            $("#header-title").empty();
+                        }
+            }
+        }
+    });
+
+
+
+
+    </script>
+
+
+    
+    <script type="090e0fe188f4a535d1fb391b-text/javascript">
+
+        $(document).ready(function () {
+            $.ajax({
+                type: 'POST',
+                url: '/GlobalAppointment/Home/PlaceholderDescription', //  calling json method  
+                header:header,
+                dataType: 'JSON',
+                data: {
+                    countryId: $("#CountryId option:selected").val(),
+                    missionId: $("#MissionId option:selected").val(),
+                    LocationId: $('#LocationId').val(),
+                },
+                cache: false,
+                success: function (data) {
+                    if (data != "") {
+                        $("#PlaceholderDesc").html(data);
+                        var maxLength = 200;
+                        $(".show-read-more").each(function () {
+                            var myStr = $(this).text();
+                            if ($.trim(myStr).length > maxLength) {
+                                var newStr = myStr.substring(0, maxLength);
+                                var removedStr = myStr.substring(maxLength, $.trim(myStr).length);
+                                $(this).empty().html(newStr);
+                                $(this).append(' <a href="javascript:void(0);" class="read-more">read more...</a>');
+                                $(this).append('<span class="more-text">' + removedStr + '</span>');
+                            }
+                        });
+                        $(".read-more").click(function () {
+                            $(this).siblings(".more-text").contents().unwrap();
+                            $(this).remove();
+                        });
+                    }
+                    else {
+
+                        $("#PlaceholderDesc").html('');
+                    }
+                }
+            });
+        })
+
+    $(function () {
+        //hide loader on complete page load
+        $("#LoadingInfo").hide();
+    });
+    $("input[type='radio']").click(function () {
+        if ($("input[type='radio'][value='PL']").is(":checked")) {
+            $(".plp").css('display', 'block');
+        } else {
+            $(".plp").css('display', 'none');
+        }
+    });
+
+    function fnBack() {
+
+        window.location.replace("../Applicant/ApplicantList");
+    }
+
+    function fnBackServicePage() {
+
+        var backurl = "";
+        var CourierServiceSelected = 'False';
+        if (CourierServiceSelected === "True")
+        {
+            backurl = "../Service/CourierServiceAddressLabel";
+            
+        }
+        else
+        {
+            backurl = "../Service/Index";
+        }
+        window.location.replace(backurl);
+    }
+
+
+    function fnBackReschedule() {
+        window.location.replace("../Reschedule/ApplicantDetails");
+    }
+
+    function ReleaseApplicantIfNotSchedule() {
+        if (confirm("Are you sure you want to cancel?")) {
+            window.location.replace("../Applicant/ReleaseApplicantIfNotSchedule");
+        }
+        return false;
+    }
+    </script>
+
+   <script type="090e0fe188f4a535d1fb391b-text/javascript">
+    $(document).ready(function () {
+        var maxLength = 200;
+        $(".show-read-more").each(function () {
+            var myStr = $(this).text();
+            if ($.trim(myStr).length > maxLength) {
+                var newStr = myStr.substring(0, maxLength);
+                var removedStr = myStr.substring(maxLength, $.trim(myStr).length);
+                $(this).empty().html(newStr);
+                $(this).append(' <a href="javascript:void(0);" class="read-more">read more...</a>');
+                $(this).append('<span class="more-text">' + removedStr + '</span>');
+            }
+        });
+        $(".read-more").click(function () {
+            $(this).siblings(".more-text").contents().unwrap();
+            $(this).remove();
+        });
+    });
+</script>
+    <script type="090e0fe188f4a535d1fb391b-text/javascript">var alertmsg = "Are you sure you want to submit?"; var select = 'Select'; var timerange = 'Time range';</script>
+    <link href="/GlobalAppointment/Content/fullcalendar.css" rel="stylesheet"/>
+
+    <script src="/GlobalAppointment/bundles/jqueryval?v=jEsBkwgKvtw2dHVvjLECgOuOmzoqcR1cnRALzVsHeQs1" type="090e0fe188f4a535d1fb391b-text/javascript"></script>
+
+    
+    <script src="/GlobalAppointment/Scripts/moment.min.js" type="090e0fe188f4a535d1fb391b-text/javascript"></script>
+
+    
+    <script src="/GlobalAppointment/Scripts/fullcalendar.js" type="090e0fe188f4a535d1fb391b-text/javascript"></script>
+
+
+    <script src="/GlobalAppointment/Scripts/App/finalCalendar.js" type="090e0fe188f4a535d1fb391b-text/javascript"></script>
+
+    <script src="/GlobalAppointment/Scripts/App/common.js" type="090e0fe188f4a535d1fb391b-text/javascript"></script>
+
+    <script src="/GlobalAppointment/Scripts/jquery.magnific-popup.min.js" type="090e0fe188f4a535d1fb391b-text/javascript"></script>
+
+
+    <script src="/GlobalAppointment/Scripts/App/global-appointment-services.js" type="090e0fe188f4a535d1fb391b-text/javascript"></script>
+
+
+
+
+            <script type="090e0fe188f4a535d1fb391b-text/javascript">
+
+
+                $(function () {
+
+                    $(document).ajaxStart(function () {
+                        $("#loading").attr("style", "position:absolute; z-index: 1000; top: 0px; " +
+                            "left:0px; text-align: center; display:none; background-color: #ddd; " +
+                            "height: 100%; width: 100%; /* These three lines are for transparency " +
+                            "in all browsers. */-ms-filter:\"progid:DXImageTransform.Microsoft.Alpha(Opacity=50)\";" +
+                            " filter: alpha(opacity=50); opacity:.5; position:fixed;");
+
+                        $("img.loaderImg").attr("style", "position:absolute; top:50%; left:50%; z-index:5000;").show();
+                        $("#loading").show();
+                    })
+                        .ajaxStop(function () {
+                            $("#loading").removeAttr("style");
+                            $("img.loaderImg").removeAttr("style").hide();
+                            $("#loading").hide();
+                        });
+
+
+                    $("form").on("submit", function (e) {
+
+                        if ((typeof event !== 'undefined' && event.defaultPrevented) || e.isDefaultPrevented()) {
+                            e.preventDefault();
+                            e.stopPropagation();
+                            return false;
+                        }
+
+
+                        $("#loading").attr("style", "position:absolute; z-index: 5000; top: 0px; " +
+                            "left:0px; text-align: center; display:none; background-color: #ddd; " +
+                            "height: 100%; width: 100%; /* These three lines are for transparency " +
+                            "in all browsers. */-ms-filter:\"progid:DXImageTransform.Microsoft.Alpha(Opacity=50)\";" +
+                            " filter: alpha(opacity=50); opacity:.5;position : fixed;");
+
+                        $("img.loaderImg").attr("style", "position:absolute; top:50%; left:50%; z-index:5000;").show();
+                        $("#loading").show();
+
+                    });
+
+                });
+            </script>
+        <!-- DATE Formatting converts 12121990 => 12/12/1990 on focus-out  -->
+        <script type="090e0fe188f4a535d1fb391b-text/javascript">
+            (function ($) {
+                'use strict';
+                var Globalconfig = {
+                    seperator: '/'
+                };
+
+                $.fn.formatToDate = function (config) {
+                    var $this = this;
+
+                    $.each($this, function () {
+
+                        var $$this = $(this),
+                            cnfg = config || Globalconfig;
+
+                        $$this.on('keydown', function (evt) {
+
+                            var value = $$this.val(),
+                                splitArry = [];
+
+                            splitArry = value.split("");
+
+                            if (!(splitArry.length < 10 && isNumeric(evt) || isDeleteOp(evt)) && !isTabOp(evt)) {
+                                evt.preventDefault();
+                            }
+                        });
+
+                        $$this.on('keyup', function (e) {
+
+                            var textSoFar = $(this).val();
+                            if (e.keyCode != 191) {
+                                if (e.keyCode != 8) {
+                                    if (textSoFar.length == 2 || textSoFar.length == 5) {
+                                        $(this).val(textSoFar + "/");
+                                    }
+                                    //to handle copy & paste of 8 digit
+                                    else if (e.keyCode == 86 && textSoFar.length == 8) {
+                                        $(this).val(textSoFar.substr(0, 2) + "/" + textSoFar.substr(2, 2) + "/" + textSoFar.substr(4, 4));
+                                    }
+                                } else {
+                                    //backspace would skip the slashes and just remove the numbers
+                                    if (textSoFar.length == 5) {
+                                        $(this).val(textSoFar.substring(0, 4));
+                                    } else if (textSoFar.length == 2) {
+                                        $(this).val(textSoFar.substring(0, 1));
+                                    }
+                                }
+                            } else {
+                                //remove slashes to avoid 12//01/2014
+                                $(this).val(textSoFar.substring(0, textSoFar.length - 1));
+                            }
+
+                        });
+
+                        return $this;
+
+
+                        //private functions
+
+                        function isNumeric(e) {
+                            return (e.keyCode >= 48 && e.keyCode <= 57) || (e.keyCode >= 96 && e.keyCode <= 105);
+                        }
+
+                        function isDeleteOp(e) {
+                            return (e.keyCode === 46 || e.keyCode === 8);
+                        }
+
+                        function isTabOp(e) {
+                            return e.keyCode === 9 || e.keyCode === 191 || e.keyCode === 37 || e.keyCode === 39;
+                        }
+                    });
+
+                };
+
+            }(jQuery));
+        </script>
+        <script type="090e0fe188f4a535d1fb391b-text/javascript">
+            (function () {
+                $(function () {
+                    $('.auto-format-date').formatToDate();
+                }); //jquery wrapper
+            }()); //IIFE
+        </script>
+
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    
+    
+
+
+    <!-- GOOGLE ANALYTICS CODE  -->
+    <script type="090e0fe188f4a535d1fb391b-text/javascript">
+        //(function (i, s, o, g, r, a, m) {
+        //    i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+        //        (i[r].q = i[r].q || []).push(arguments)
+        //    }, i[r].l = 1 * new Date(); a = s.createElement(o),
+        //        m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+        //})(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+        //ga('create', 'UA-69459092-1', 'auto');
+        //ga('send', 'pageview');
+
+
+
+
+
+
+        $(document).ready(function () {
+
+            $('.customcapcha').find('br').remove();
+
+            $(".customcapcha a").html('<img src="/GlobalAppointment/Images/refresh.png" />');
+
+            $('.customcapcha input').addClass("form-control small-input_field");
+            $('.customcapcha input').css("width", "200px");
+        });
+    </script>
+
+    <input type="hidden" id="ApplicantGroupId" value="" />
+<script src="/cdn-cgi/scripts/7d0fa10a/cloudflare-static/rocket-loader.min.js" data-cf-settings="090e0fe188f4a535d1fb391b-|49" defer=""></script></body>
+</html>
+

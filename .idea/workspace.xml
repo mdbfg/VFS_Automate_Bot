@@ -3,6 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="863e75e0-2935-4d65-8fa3-d2232e1c2362" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/VFS_Bot/data.csv" beforeDir="false" afterPath="$PROJECT_DIR$/VFS_Bot/data.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/VFS_Bot/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/VFS_Bot/main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
